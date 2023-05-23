@@ -21,7 +21,7 @@ class Encoder(nn.Module):
 
         xt = x.transpose(0,1) # (20,128)
         inputs_length = torch.sum(torch.where(x > 0, True, False), dim=1)   # length_list
-        emb = self.embedding(xt)      	# trainable_embedding (128,20,512)
+        emb = self.embedding(xt)      	# trainable_embedding (20,128,512)
         packed = pack(emb, inputs_length.tolist(), enforce_sorted=False)
         # embt = emb.permute(1,0,2)		# torch.Size([20, 128, 512])
         output, state = self.rnn(packed)#, state)
